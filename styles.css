@@ -1,4 +1,4 @@
-/* Globales */
+
 
 
 *::after,
@@ -7,15 +7,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #f3acac;
+   
+    
 }
 
 body{
-    margin: 0 auto;
-    max-width: 1200px;
-    font-family:initial;
-    color: #440404;
-
+   margin: 0 auto;
+   max-width: 1200px;
+   font-family:initial;
+   color: #440404;
+   background-color: #ecbaba;
     
 }
 
@@ -149,7 +150,6 @@ header{
 
 
 
-/* Main */
 .container-items{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
