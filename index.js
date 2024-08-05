@@ -1,3 +1,17 @@
+const cartInfo = document.querySelector('.cart-product');
+const rowProduct = document.querySelector('.row-product');
+const productsList = document.querySelector('.container-items');
+const btnCart = document.querySelector('.container-cart-icon');
+const containerCartProducts = document.querySelector(
+	'.container-cart-products'
+);
+const valorTotal = document.querySelector('.total-pagar');
+const countProducts = document.querySelector('#contador-productos');
+const cartEmpty = document.querySelector('.cart-empty');
+const cartTotal = document.querySelector('.cart-total');
+
+
+
 Swal.fire({
 	title: 'LUMUSMAXIMA DICE',
 	text: 'Bienvenido!',
@@ -6,30 +20,12 @@ Swal.fire({
     
 })
 
-
-const btnCart = document.querySelector('.container-cart-icon');
-const containerCartProducts = document.querySelector(
-	'.container-cart-products'
-);
-
 btnCart.addEventListener('click', () => {
 	containerCartProducts.classList.toggle('hidden-cart');
 });
 
 
-const cartInfo = document.querySelector('.cart-product');
-const rowProduct = document.querySelector('.row-product');
-const productsList = document.querySelector('.container-items');
-
-// Variable de arreglos de Productos
 let allProducts = [];
-
-const valorTotal = document.querySelector('.total-pagar');
-
-const countProducts = document.querySelector('#contador-productos');
-
-const cartEmpty = document.querySelector('.cart-empty');
-const cartTotal = document.querySelector('.cart-total');
 
 productsList.addEventListener('click', e => {
 	if (e.target.classList.contains('btn-add-cart')) {
@@ -128,8 +124,14 @@ const showHTML = () => {
 		total =
 			total + parseInt(product.quantity * product.price.slice(1));
 		totalOfProducts = totalOfProducts + product.quantity;
-	});
 
+
+	
+	 });
+
+	
 	valorTotal.innerText = `$${total}`;
 	countProducts.innerText = totalOfProducts;
+
+
 };
