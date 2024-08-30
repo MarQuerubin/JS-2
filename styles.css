@@ -30,6 +30,17 @@ body{
     cursor: pointer;
 }
 
+
+.boton-compra {
+  background-color: #e65656;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  border-radius: 5px;
+}
+
 img{
     max-width: 100%;
 }

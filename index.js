@@ -9,24 +9,77 @@ const valorTotal = document.querySelector('.total-pagar');
 const countProducts = document.querySelector('#contador-productos');
 const cartEmpty = document.querySelector('.cart-empty');
 const cartTotal = document.querySelector('.cart-total');
+const vaciarCarrito = () => {
+	allProducts = [];
+	showHTML(); 
+	updateLocalStorage(); 
+  };
 
 
-
-Swal.fire({
-	title: 'LUMUSMAXIMA DICE',
-	text: 'Bienvenido!',
-	icon: 'success',
-	confirmButtonText: 'Cool'
-    
-})
+  Swal.fire({
+	position: "top-center",
+	icon: "success",
+	title: "BIENVENIDO A LUMOSMAXIMA",
+	showConfirmButton: false,
+	timer: 1550
+  });
 
 btnCart.addEventListener('click', () => {
 	containerCartProducts.classList.toggle('hidden-cart');
-});
+		
+	
 
+	  
+	document.getElementById('boton-compra').addEventListener('click', function() {
+		const vaciarCarrito = () => {
+		allProducts = [];
+		showHTML(); 
+		updateLocalStorage(); };
+  
+		
+
+		Swal.fire({
+			title: 'MUCHAS GRACIAS POR SU COMPRA!',
+			text: 'Nos contactaremos con usted a la brevedad',
+			icon: 'success',
+			confirmButtonText: 'OK'
+			
+		})
+
+  
+
+
+
+	   boton-compra.addEventListener('click', () => {
+		vaciarCarrito();});
+	  });
+
+	 
+	  
+		
+	  });
+	
+
+
+
+document.getElementById('boton-compra').addEventListener('click', () => {
+	vaciarCarrito();
+  });
 
 let allProducts = [];
+document.addEventListener('DOMContentLoaded', () => {
+	const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+	if (cartProducts) {
+	  allProducts = cartProducts;
+	  showHTML();
+	}
 
+	
+  });
+
+  const updateLocalStorage = () => {
+	localStorage.setItem('cartProducts', JSON.stringify(allProducts));
+  };
 productsList.addEventListener('click', e => {
 	if (e.target.classList.contains('btn-add-cart')) {
 		const product = e.target.parentElement;
@@ -51,11 +104,15 @@ productsList.addEventListener('click', e => {
 				}
 			});
 			allProducts = [...products];
+			
 		} else {
 			allProducts = [...allProducts, infoProduct];
+			
 		}
 
 		showHTML();
+
+		updateLocalStorage();
 	}
 	
 });
