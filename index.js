@@ -1,4 +1,6 @@
 
+
+
 const cartInfo = document.querySelector('.cart-product');
 const rowProduct = document.querySelector('.row-product');
 const productsList = document.querySelector('.container-items');
@@ -33,12 +35,12 @@ btnCart.addEventListener('click', () => {
         vaciarCarrito();
 
         try {
-            const response = await fetch('https://example.com/api/purchase', {
-                method: 'POST',
+            const response = await fetch( 'https://apifrases.esmeldy.com/api/frases/random', {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ products: allProducts }),
+                
             });
 
             if (!response.ok) {
@@ -48,7 +50,7 @@ btnCart.addEventListener('click', () => {
             const data = await response.json();
             Swal.fire({
                 title: 'MUCHAS GRACIAS POR SU COMPRA!',
-                text: 'Nos contactaremos con usted a la brevedad',
+                text: data.frase,
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
