@@ -1,6 +1,3 @@
-
-
-
 const cartInfo = document.querySelector('.cart-product');
 const rowProduct = document.querySelector('.row-product');
 const productsList = document.querySelector('.container-items');
