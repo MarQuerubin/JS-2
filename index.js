@@ -42,7 +42,7 @@ btnCart.addEventListener('click', () => {
     containerCartProducts.classList.toggle('hidden-cart');
     
     document.getElementById('boton-compra').addEventListener('click', async () => {
-        vaciarCarrito();
+        
 
         try {
             /*
@@ -60,6 +60,28 @@ btnCart.addEventListener('click', () => {
 
             const data = await response.json();
             */
+
+            const { value: formaPago } = await Swal.fire({
+                title: "Seleccione una forma de pago",
+                input: "select",
+                inputOptions: {
+                  efectivo: "Efectivo",
+                  tarjetad: "Tarjeta débito",
+                  tarjetac: "Tarjeta credito",
+                },
+                inputPlaceholder: "Forma de pago",
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "Debe seleccionar una forma de pago para continuar!";
+                      }
+                }
+              });
+
+              console.log(formaPago)
+
+              vaciarCarrito();
+
             Swal.fire({
                 title: 'MUCHAS GRACIAS POR SU COMPRA!',
                 //text: data.frase,
@@ -97,7 +119,6 @@ productsList.addEventListener('click', async e => {
         const result = await fetch(urlVelas)
 
         let velas = await result.json()
-        console.log(velas)
         let nombre = product.querySelector('h2').textContent
 
         let vela = velas.find(v => v.name == nombre)
