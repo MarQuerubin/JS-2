@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Varilla",
+    "price": 2400,
+    "image": "./img/varilla.jpg"
+  },
+  {
+    "name": "Velas aromáticas",
+    "price": 2000,
+    "image": "./img/vela.jpg"
+  },
+  {
+    "name": "Aceites esenciales",
+    "price": 3000,
+    "image": "./img/Roll-On.jpg"
+  },
+  {
+    "name": "Sahumerios",
+    "price": 1200,
+    "image": "./img/palo santo.jpg"
+  },
+  {
+    "name": "Velas de diseño",
+    "price": 4000,
+    "image": "./img/velafrases.jpg"
+  }
+]
