@@ -96,8 +96,8 @@ productsList.addEventListener('click', async e => {
 
         const result = await fetch(urlVelas)
 
+        console.log(result.json())
         let velas = result.json()
-        console.log(velas)
         let nombre = product.querySelector('h2').textContent
 
         let vela = velas.find(v => v.name == nombre)
