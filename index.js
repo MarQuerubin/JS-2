@@ -30,6 +30,16 @@ const vaciarCarrito = () => {
     updateLocalStorage(); 
 };
 
+const finalizarCompra = () => {
+    vaciarCarrito();
+    Swal.fire({
+        title: 'MUCHAS GRACIAS POR SU COMPRA!',
+        //text: data.frase,
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+}
+
 Swal.fire({
     position: "top-center",
     icon: "success",
@@ -78,16 +88,37 @@ btnCart.addEventListener('click', () => {
                 }
               });
 
-              console.log(formaPago)
+              if (formaPago == 'efectivo') {
+                finalizarCompra();
+                
+              } else if (formaPago == 'tarjetad' || formaPago == 'tarjetac') {
 
-              vaciarCarrito();
 
-            Swal.fire({
-                title: 'MUCHAS GRACIAS POR SU COMPRA!',
-                //text: data.frase,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+                const { value: numero_tarjeta } = await Swal.fire({
+                    title: "Ingrese su tarjeta",
+                    input: "number",
+                    inputLabel: "Complete los datos para finalizar la compra",
+                    inputPlaceholder: "xxxx-xxxx-xxxx-xxxx",
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return "Debe completar los datos para continuar!";
+                          }
+                    }
+                  });
+                  
+                  if (numero_tarjeta == undefined) {
+                    Swal.fire({
+                        title: 'Se cancelo la operacion!',
+                        text: 'Por favor intente nuevamente',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                  } else {
+                        finalizarCompra();
+                  }
+
+              }
+
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             Swal.fire({
