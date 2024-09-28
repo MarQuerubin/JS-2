@@ -71,6 +71,10 @@ btnCart.addEventListener('click', () => {
             const data = await response.json();
             */
 
+            if (allProducts.length > 0) {
+                
+        
+
             const { value: formaPago } = await Swal.fire({
                 title: "Seleccione una forma de pago",
                 input: "select",
@@ -118,6 +122,16 @@ btnCart.addEventListener('click', () => {
                   }
 
               }
+
+            } else {
+
+                Swal.fire({
+                    title: 'Debe seleccionar al menos un producto!',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+
+            }
 
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
