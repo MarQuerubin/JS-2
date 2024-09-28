@@ -14,6 +14,16 @@ const cartTotal = document.querySelector('.cart-total');
 
 let allProducts = [];
 
+const urlVelas = "./data.json"
+
+
+
+const format_money = (money) => {
+    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(money)
+  
+}
+
+
 const vaciarCarrito = () => {
     allProducts = [];
     showHTML(); 
@@ -35,6 +45,7 @@ btnCart.addEventListener('click', () => {
         vaciarCarrito();
 
         try {
+            /*
             const response = await fetch( 'https://apifrases.esmeldy.com/api/frases/random', {
                 method: 'GET',
                 headers: {
@@ -48,9 +59,10 @@ btnCart.addEventListener('click', () => {
             }
 
             const data = await response.json();
+            */
             Swal.fire({
                 title: 'MUCHAS GRACIAS POR SU COMPRA!',
-                text: data.frase,
+                //text: data.frase,
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
@@ -78,14 +90,20 @@ const updateLocalStorage = () => {
     localStorage.setItem('cartProducts', JSON.stringify(allProducts));
 };
 
-productsList.addEventListener('click', e => {
+productsList.addEventListener('click', async e => {
     if (e.target.classList.contains('btn-add-cart')) {
         const product = e.target.parentElement;
 
+        const result = await fetch(urlVelas)
+
+        let velas = result.json()
+
+        let vela = velas.find(v => v.name == product.querySelector('h2').textContent)
+
         const infoProduct = {
             quantity: 1,
-            title: product.querySelector('h2').textContent,
-            price: product.querySelector('p').textContent,
+            title: vela.name,
+            price: vela.price,
         };
 
         const exists = allProducts.some(item => item.title === infoProduct.title);
@@ -163,10 +181,40 @@ const showHTML = () => {
 
         rowProduct.append(containerProduct);
 
-        total += parseInt(product.quantity * product.price.slice(1));
+        total += parseFloat(product.quantity * product.price);
         totalOfProducts += product.quantity;
     });
 
-    valorTotal.innerText = `$${total}`;
+    valorTotal.innerText = format_money(total);
     countProducts.innerText = totalOfProducts;
 };
+
+
+
+const showProducts = (items) => {
+    items.forEach(product => {
+        let card = document.createElement('div');
+
+        card.innerHTML = `
+            <div class="item">
+				<figure>
+					<img
+						src="${product.image}"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>${product.name}</h2>
+					<p class="price">${format_money(product.price)}</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+			</div>
+        `;
+
+        productsList.append(card);
+    });
+}
+
+fetch(urlVelas)
+    .then(result => result.json())
+    .then(data => showProducts(data)); 
